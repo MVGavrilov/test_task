@@ -16,14 +16,6 @@ if(DEFINED SOME_HASH_SHARED_LIBS)
     set(BUILD_SHARED_LIBS ${SOME_HASH_SHARED_LIBS})
 endif()
 
-if(NOT DEFINED CMAKE_CXX_VISIBILITY_PRESET)
-    set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-endif()
-
-if(NOT DEFINED CMAKE_VISIBILITY_INLINES_HIDDEN)
-    set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
-endif()
-
 #------------------------------------------------------------------------------
 # SOURCES
 #------------------------------------------------------------------------------
@@ -41,6 +33,12 @@ set(sources
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${sources})
 
 target_sources(some_hash PRIVATE ${sources})
+
+set_target_properties(some_hash PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+
 target_include_directories(some_hash
         PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/include
