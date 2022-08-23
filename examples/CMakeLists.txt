@@ -1,0 +1,1 @@
+add_subdirectory(some_hash_example)
