@@ -71,7 +71,7 @@ namespace SomeHash {
             const std::lock_guard<std::mutex> lock(hash.m_mutex);
             auto start_address = reinterpret_cast<size_t>(hash.m_map.get());
             for (const auto &[key, value]: *hash.m_map) {
-                os << key << ": " << reinterpret_cast<size_t>(&key) - start_address << std::endl;
+                os << key << ": " << reinterpret_cast<size_t>(&value) - start_address << std::endl;
             }
             return os;
         }
@@ -85,14 +85,14 @@ namespace SomeHash {
         mutable std::mutex m_mutex;
     };
 
-    //не уверен, что класс для тестирования нужно  оформлять так (скорее уверен, что нет),
-    // но сходу нормальный способ не придумал
+    // I’m not sure that the class for testing needs to be designed like this (rather sure that it isn’t),
+    // but I didn’t come up with a normal way right away
     template<typename T>
     class SomeHashTest {
     public:
         SomeHashTest() = delete;
         explicit SomeHashTest(SomeHash<T> * hash): m_some_hash(hash) {}
-        void set_value(const T &key, const int &value) {
+        void set_value(const T &key, const unsigned int &value) {
             (*m_some_hash->m_map)[key] = value;
         }
     private:
