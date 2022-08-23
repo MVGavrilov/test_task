@@ -1,5 +1,6 @@
 #include "SomeHash.h"
+#include <iostream>
 
-int SomeHash::sum(int a, int b) {
-    return a + b;
-}
+namespace SomeHash {
+
+};
