@@ -10,41 +10,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-#--------------------------------------------------------------------------------------
-# SHARED LIB WITH TESTS AND EXAMPLES
-#--------------------------------------------------------------------------------------
-
     steps:
     - uses: actions/checkout@v3
 
-    - name: Configure shared lib CMake
-      run: INSTALL_DIR=${{github.workspace}}/artifacts/shared cmake -B ${{github.workspace}}/build-shared -DSOME_HASH_INSTALL=ON -DSOME_HASH_BUILD_TESTS=ON -DSOME_HASH_BUILD_EXAMPLES=ON -DSOME_HASH_SHARED_LIBS=ON
+    - name: Configure lib CMake
+      run: INSTALL_DIR=${{github.workspace}}/artifacts cmake -B ${{github.workspace}}/build-shared -DSOME_HASH_INSTALL=ON -DSOME_HASH_BUILD_TESTS=ON -DSOME_HASH_BUILD_EXAMPLES=ON
 
-    - name: Build shared lib
+    - name: Build lib
       run: cmake --build ${{github.workspace}}/build-shared
       
-    - name: Install shared lib
+    - name: Install lib
       run: cmake --install ${{github.workspace}}/build-shared
 
-    - name: Test shared lib
+    - name: Test lib
       working-directory: ${{github.workspace}}/build-shared
-      run: ctest
-      
-#--------------------------------------------------------------------------------------
-# STATIC LIB WITH TESTS AND EXAMPLES
-#--------------------------------------------------------------------------------------
-
-    - name: Configure static lib CMake
-      run: INSTALL_DIR=${{github.workspace}}/artifacts/static cmake -B ${{github.workspace}}/build-static -DSOME_HASH_INSTALL=ON -DSOME_HASH_BUILD_TESTS=ON -DSOME_HASH_BUILD_EXAMPLES=ON
-
-    - name: Build static lib
-      run: cmake --build ${{github.workspace}}/build-static
-      
-    - name: Install static lib
-      run: cmake --install ${{github.workspace}}/build-static
-
-    - name: Test static lib
-      working-directory: ${{github.workspace}}/build-static
       run: ctest
       
 #--------------------------------------------------------------------------------------

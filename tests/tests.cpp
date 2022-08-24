@@ -1,4 +1,4 @@
-#include "SomeHash.h"
+#include "SomeHash.hpp"
 
 #include <gtest/gtest.h>
 #include <regex>

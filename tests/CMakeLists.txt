@@ -15,10 +15,6 @@ set(BUILD_SHARED_LIBS OFF)
 
 FetchContent_MakeAvailable(googletest)
 
-if(PROJECT_IS_TOP_LEVEL)
-    find_package(some_hash REQUIRED)
-endif()
-
 set(sources
         tests.cpp)
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${sources})
